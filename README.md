@@ -1,17 +1,23 @@
-# Práctica 6. Gerard Cots y Joel J. Morera
+# Práctica 7. Gerard Cots y Joel J. Morera
 
 ## Ejercicio practico 1 : Reproducción desde memoria interna
 
 ###### **Funcionamiento**
 
-Paragraph
+En este ejercico se implementa la reproducción de un archivo AAC desde la memoria interna del ESP32. Para ello, se establece un puerto de comunicacion I2S entre el processador y el DAC. Por último, una vez inicializados ambos dispositivos, se reproduce el archivo AAC.
 
 ###### **Código del programa**
 
 - platformio.ini
 
 ```
-
+[env:esp32doit-devkit-v1]
+platform = espressif32
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_port = /dev/ttyUSB0
+monitor_speed = 115200
+lib_deps = earlephilhower/ESP8266Audio@^1.9.7
 ```
 
 - main.cpp
@@ -53,9 +59,10 @@ void loop()
 
 ###### **Salida del puerto serie**
 
-Paragraph
+Pese a que la salida por el puerto serie no nos de información respecto a lo que sucede en el mundo físico, al ejecutar el programa comprovamos que se reproduce el audio descrito en el fichero `sampleaac.h`,
 
 ```
+Sound Generator
 ```
 
 ***
@@ -64,13 +71,20 @@ Paragraph
 
 ###### **Funcionamiento**
 
-Paragraph
+En este ejercicio se implementa la reproducción de un archivo WAV desde una tarjeta SD externa. Para ello, despues de añadir el fichero wav a la tarjeta SD, se establece un puerto de comunicacion SPI entre la tarjeta SD y el ESP32. Por otra parte, se establece un puerto de comunicacion I2S entre el processador y el DAC. Por último, una vez inicializados ambos dispositivos, se reproduce el archivo WAV.
 
 ###### **Código del programa**
 
 - platformio.ini:
 
 ```
+[env:esp32doit-devkit-v1]
+platform = espressif32
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_port = /dev/ttyUSB0
+monitor_speed = 115200
+lib_deps =  esphome/ESP32-audioI2S @ ^2.0.6
 ```
 
 - main.cpp:
@@ -99,8 +113,8 @@ void setup()
     Serial.begin(115200);
     SD.begin(SD_CS);
     audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
-    audio.setVolume(10); // 0...21
-    audio.connecttoFS(SD, "Ensoniq-ZR-76-01-Dope-77.wav");
+    audio.setVolume(21); // 0...21
+    audio.connecttoFS(SD, "come-together.wav");
 }
 
 void loop()
@@ -178,9 +192,10 @@ void audio_eof_speech(const char *info)
 
 ###### **Salida del puerto serie**
 
-Paragraph
+De la misma manera que en el ejercicio anterior, aunque la salida por el puerto serie no nos ofrece una interpretación real de lo que sucede, se reproduce el archivo WAV dentro de la SD.
 
-```
-```
+###### **Montaje**
+
+![Montaja WAV](./images/mount_wav.png)
 
 ***
