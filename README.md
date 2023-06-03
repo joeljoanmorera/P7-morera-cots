@@ -65,7 +65,12 @@ Pese a que la salida por el puerto serie no nos de información respecto a lo qu
 Sound Generator
 ```
 
+###### **Montaje**
+
+![Montaja AAC](./images/WAW.png)
+
 ***
+
 
 ## Ejercicio practico 2 : Reproducir un archivo WAW en ESP32 desde una targeta SD externa
 
@@ -196,6 +201,6 @@ De la misma manera que en el ejercicio anterior, aunque la salida por el puerto 
 
 ###### **Montaje**
 
-![Montaja WAV](./images/mount_wav.png)
+![Montaje WAV](./images/montage_waw_sd.png)
 
 ***
