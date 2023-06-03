@@ -6,11 +6,28 @@
 
 En este ejercico se implementa la reproducción de un archivo AAC desde la memoria interna del ESP32. Para ello, se establece un puerto de comunicacion I2S entre el processador y el DAC. Por último, una vez inicializados ambos dispositivos, se reproduce el archivo AAC.
 
+###### **Diagrama de estados**
+
+```mermaid
+flowchart LR;
+    
+    ST --> L
+
+    subgraph ST[Setup de los dispositivos]
+        DF[Definir entrada de datos, dispositivo AAC y salida por I2S] --> AB[Iniciar ejecuccion de AAC]
+    end
+  
+  subgraph L[Programa principal]
+      if{AAC se esta ejecutando ?} --Si--> LA[Reproducir]
+      if --No--> LS[Parar AAC, mostar por pantalla mensaje final]
+  end
+```
+
 ###### **Código del programa**
 
 - platformio.ini
 
-```
+```ini
 [env:esp32doit-devkit-v1]
 platform = espressif32
 board = esp32doit-devkit-v1
@@ -78,11 +95,25 @@ Sound Generator
 
 En este ejercicio se implementa la reproducción de un archivo WAV desde una tarjeta SD externa. Para ello, despues de añadir el fichero wav a la tarjeta SD, se establece un puerto de comunicacion SPI entre la tarjeta SD y el ESP32. Por otra parte, se establece un puerto de comunicacion I2S entre el processador y el DAC. Por último, una vez inicializados ambos dispositivos, se reproduce el archivo WAV.
 
+###### **Diagrama de estados**
+
+```mermaid
+flowchart LR;
+    
+    ST --> L
+
+    subgraph ST[Setup de los dispositivos]
+        ISPI[Iniciar bus SPI] --> ISD[Iniciar SD] --> DF[Definir pines, volumen y connectar al fichero WAV en FileSystem] 
+    end
+  
+    L[Reproducir en bucle]
+```
+
 ###### **Código del programa**
 
 - platformio.ini:
 
-```
+```ini
 [env:esp32doit-devkit-v1]
 platform = espressif32
 board = esp32doit-devkit-v1
